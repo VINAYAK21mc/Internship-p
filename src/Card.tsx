@@ -2,11 +2,9 @@ interface CardPropsI{
     quote:string,
     onSave:(quote:string)=>void,
 }
-const Card = ({quote,onSave}:CardPropsI) => {
+const Card = ({quote}:CardPropsI) => {
   return (
-    <div className="quote-card" onClick={()=>{
-        onSave(quote)
-    }}>{quote}</div>
+    <div className="quote-card">{quote}</div>
   )
 }
 

@@ -39,6 +39,7 @@ const App = () => {
     <div className="app">
       <h1>Quotes</h1>
       <Card quote={quote} onSave={saveQuote} />
+      <button onClick={()=>saveQuote(quote)}>Save Quote</button>
       <button onClick={fetchQuote}>New Quote</button>
       <h2>Saved Quotes</h2>
       <ul>
