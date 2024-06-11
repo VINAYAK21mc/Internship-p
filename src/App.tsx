@@ -6,15 +6,6 @@ const App = () => {
   const [quote, setQuote] = useState("");
   const [savedQuotes, setSavedQuotes] = useState<string[]>([]);
 
-  useEffect(() => {
-    fetchQuote();
-    const saved = localStorage.getItem("savedQuotes")?.split(",") as string[];
-    if (saved) {
-      setSavedQuotes(saved);
-    }
-    // console.log(saveQuote)
-  }, []);
-
   const fetchQuote = async () => {
     try {
       const response = await axios.get(
@@ -27,19 +18,19 @@ const App = () => {
   };
 
   const saveQuote = (quote: string) => {
-    const updatedSavedQuotes = [...savedQuotes, quote];
-    if (localStorage.getItem("savedQuotes")?.split(",").indexOf(quote) === -1) {
-      console.log(savedQuotes);
-      setSavedQuotes(updatedSavedQuotes);
-      localStorage.setItem("savedQuotes", updatedSavedQuotes.toString());
-    }
+    if (savedQuotes.indexOf(quote) === -1)
+      setSavedQuotes([...savedQuotes, quote]);
   };
+
+  useEffect(() => {
+    fetchQuote();
+  }, []);
 
   return (
     <div className="app">
       <h1>Quotes</h1>
-      <Card quote={quote} onSave={saveQuote} />
-      <button onClick={()=>saveQuote(quote)}>Save Quote</button>
+      <Card quote={quote} />
+      <button onClick={() => saveQuote(quote)}>Save Quote</button>
       <button onClick={fetchQuote}>New Quote</button>
       <h2>Saved Quotes</h2>
       <ul>

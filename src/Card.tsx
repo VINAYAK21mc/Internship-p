@@ -1,6 +1,5 @@
 interface CardPropsI{
     quote:string,
-    onSave:(quote:string)=>void,
 }
 const Card = ({quote}:CardPropsI) => {
   return (
