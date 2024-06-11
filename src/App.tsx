@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import Card from "./Card";
 
 const App = () => {
-  const [quote, setQuote] = useState('');
+  const [quote, setQuote] = useState("");
   const [savedQuotes, setSavedQuotes] = useState<string[]>([]);
 
   useEffect(() => {
     fetchQuote();
-    const saved = localStorage.getItem('savedQuotes')?.split(",") as string[];
+    const saved = localStorage.getItem("savedQuotes")?.split(",") as string[];
     if (saved) {
       setSavedQuotes(saved);
     }
@@ -17,18 +17,21 @@ const App = () => {
 
   const fetchQuote = async () => {
     try {
-      const response = await axios.get('https://ron-swanson-quotes.herokuapp.com/v2/quotes');
+      const response = await axios.get(
+        "https://ron-swanson-quotes.herokuapp.com/v2/quotes"
+      );
       setQuote(response.data[0]);
     } catch (error) {
-      console.error('Error fetching quote', error);
+      console.error("Error fetching quote", error);
     }
   };
 
-  const saveQuote = (quote:string) => {
+  const saveQuote = (quote: string) => {
     const updatedSavedQuotes = [...savedQuotes, quote];
-    if(localStorage.getItem('savedQuotes')?.split(",").indexOf(quote)===-1){
+    if (localStorage.getItem("savedQuotes")?.split(",").indexOf(quote) === -1) {
+      console.log(savedQuotes);
       setSavedQuotes(updatedSavedQuotes);
-      localStorage.setItem('savedQuotes', updatedSavedQuotes.toString());
+      localStorage.setItem("savedQuotes", updatedSavedQuotes.toString());
     }
   };
 
